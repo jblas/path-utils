@@ -52,7 +52,7 @@
 	//    [16]: ?msg=1234&type=unread
 	//    [17]: #msg-content
 	//
-	urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
+	urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#\.]*(?:\.[^\?#\.]+)*(\.[^\?#\.]+)|[^\?#]*)))?(\?[^#]+)?)(#.*)?/,
 
 	// These are the property names we set on the parsed url object. The order of the names
 	// in this array must match the order of the sub-matches in urlParseRE!
@@ -73,6 +73,7 @@
 			"pathname",
 			"directory",
 			"filename",
+			"filenameExtension",
 			"search",
 			"hash"
 	],
