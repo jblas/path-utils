@@ -26,7 +26,7 @@
 
 (function( window ){
 
- var pathUtils = {
+ var PathUtils = {
 	// This scary looking regular expression parses an absolute URL or its relative
 	// variants (protocol, site, document, query, and hash), into the various
 	// components (protocol, host, path, query, fragment, etc that make up the
@@ -88,8 +88,8 @@
 			return url;
 		}
 
-		var matches = pathUtils.urlParseRE.exec( url || "" ) || [],
-			props = pathUtils.parsedUrlPropNames,
+		var matches = PathUtils.urlParseRE.exec( url || "" ) || [],
+			props = PathUtils.parsedUrlPropNames,
 			cnt = props.length,
 			result = {},
 			i;
@@ -106,23 +106,23 @@
 	},
 
 	port: function( url ) {
-		var u = pathUtils.parseUrl( url );
-		return u.port || pathUtils.defaultPorts[u.protocol];
+		var u = PathUtils.parseUrl( url );
+		return u.port || PathUtils.defaultPorts[u.protocol];
 	},
 
 	isSameDomain: function( absUrl1, absUrl2 ) {
-		return pathUtils.parseUrl( absUrl1 ).domain === pathUtils.parseUrl( absUrl2 ).domain;
+		return PathUtils.parseUrl( absUrl1 ).domain === PathUtils.parseUrl( absUrl2 ).domain;
 	},
 
 	//Returns true for any relative variant.
 	isRelativeUrl: function( url ) {
 		// All relative Url variants have one thing in common, no protocol.
-		return pathUtils.parseUrl( url ).protocol === "";
+		return PathUtils.parseUrl( url ).protocol === "";
 	},
 
 	//Returns true for an absolute url.
 	isAbsoluteUrl: function( url ) {
-		return pathUtils.parseUrl( url ).protocol !== "";
+		return PathUtils.parseUrl( url ).protocol !== "";
 	},
 
 	// Turn relPath into an asbolute path. absPath is
@@ -186,17 +186,17 @@
 	// Turn any relative URL variant into an absolute URL.
 
 	makeUrlAbsolute: function( relUrl, absUrl ) {
-		if ( !pathUtils.isRelativeUrl( relUrl ) ) {
+		if ( !PathUtils.isRelativeUrl( relUrl ) ) {
 			return relUrl;
 		}
 
-		var relObj = pathUtils.parseUrl( relUrl ),
-			absObj = pathUtils.parseUrl( absUrl ),
+		var relObj = PathUtils.parseUrl( relUrl ),
+			absObj = PathUtils.parseUrl( absUrl ),
 			protocol = relObj.protocol || absObj.protocol,
 			doubleSlash = relObj.protocol ? relObj.doubleSlash : ( relObj.doubleSlash || absObj.doubleSlash ),
 			authority = relObj.authority || absObj.authority,
 			hasPath = relObj.pathname !== "",
-			pathname = pathUtils.makePathAbsolute( relObj.pathname || absObj.filename, absObj.pathname ),
+			pathname = PathUtils.makePathAbsolute( relObj.pathname || absObj.filename, absObj.pathname ),
 			search = relObj.search || ( !hasPath && absObj.search ) || "",
 			hash = relObj.hash;
 
@@ -204,24 +204,24 @@
 	}
 };
 
-// For every parsedUrlPropName, make sure there is a getter function defined on the pathUtils object.
+// For every parsedUrlPropName, make sure there is a getter function defined on the PathUtils object.
 
 function getterFunc( propName )
 {
 	return function( url ){
-		return pathUtils.parseUrl( url )[ propName ];
+		return PathUtils.parseUrl( url )[ propName ];
 	}
 }
 
-var i, prop, props = pathUtils.parsedUrlPropNames, cnt = props.length;
+var i, prop, props = PathUtils.parsedUrlPropNames, cnt = props.length;
 for ( i = 0; i < cnt; i++ ) {
 	prop = props[ i ];
-	if ( !pathUtils[ prop ] ) {
-		pathUtils[ prop ] = getterFunc( prop );
+	if ( !PathUtils[ prop ] ) {
+		PathUtils[ prop ] = getterFunc( prop );
 	}
 }
 
-// Expose pathUtils to the world.
-window.pathUtils = pathUtils;
+// Expose PathUtils to the world.
+window.PathUtils = PathUtils;
 
 })( window );

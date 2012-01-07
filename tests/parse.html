@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Parse Tests</title>
-<script src="../path-utils.js"></script>
+<script src="../path-utils.min.js"></script>
 </head>
 
 <body>
@@ -63,13 +63,13 @@ var testUrls = [
 			"a/b/../../file.html",
 			"http://mycompany.com/a/b-1.0-min.js?foo=1&bar=2"
 		],
-	props = pathUtils.parsedUrlPropNames,
+	props = PathUtils.parsedUrlPropNames,
 	maxLen = getMaxLength( props ),
 	obj;
 
 for ( var i = 0; i < testUrls.length; i++ ) {
 	document.write("<strong>Url:</strong> " + entityEncode( testUrls[ i ] ) + "\n\n");
-	obj = pathUtils.parseUrl( testUrls[ i ] );
+	obj = PathUtils.parseUrl( testUrls[ i ] );
 	for ( var j = 0; j < props.length; j++ ) {
 		document.write("\t<strong>" + getSpaces( maxLen - props[ j ].length ) +  props[ j ] + ":</strong> " + entityEncode( obj[ props[ j ] ] ) + "\n");
 	}
